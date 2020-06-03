@@ -1,0 +1,7 @@
+[
+	{"id": 1, "name": "Samuel",  "role": "Software"},
+	{"id": 2, "name": "Michael", "role": "Vue"},
+	{"id": 3, "name": "Keith",   "role": "React"},
+	{"id": 4, "name": "Derick",  "role": "Graphic"},
+	{"id": 5, "name": "Carl",    "role": "UI/UX"}
+]
