@@ -19,6 +19,17 @@ function* getUsers() {
   }
 }
 
+function* getTodos() {
+  try {
+    const response = yield fetch('https://jsonplaceholder.typicode.com/todos/1').then(response => response.json())
+    // console.log("i am balling in the get users function")
+    console.log(response, "response")
+
+  } catch (err) {
+
+  }
+}
+
 export default function* rootSaga() {
   yield takeEvery(GET_USERS, getUsers)
 }
