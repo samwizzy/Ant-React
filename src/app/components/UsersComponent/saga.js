@@ -1,4 +1,11 @@
-import {all, put, call, take, takeLatest, takeEvery} from 'redux-saga/effects'
+import {
+  // all,
+  // put, 
+  // call, 
+  // take, 
+  // takeLatest, 
+  takeEvery
+} from 'redux-saga/effects'
 import { GET_USERS } from './actions'
 
 function* getUsers() {
@@ -7,11 +14,11 @@ function* getUsers() {
     // console.log("i am balling in the get users function")
     console.log(response, "response")
 
-  } catch(err){
+  } catch (err) {
 
   }
 }
 
-export default function* rootSaga(){
+export default function* rootSaga() {
   yield takeEvery(GET_USERS, getUsers)
 }
