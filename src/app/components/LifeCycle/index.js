@@ -2,10 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './actions'
-import firebaseService from './../../services/firebase'
-import firebase from 'firebase/app'
-import 'firebase/database'
-import _ from 'lodash'
 
 class LifeCycle extends React.Component {
 
@@ -16,12 +12,6 @@ class LifeCycle extends React.Component {
   componentDidMount() {
     this.props.getCycles()
     this.props.getUsers()
-
-    // firebase.database().ref().child('users')
-    //   .on('value', snapshot => {
-    //     const users = _.values(snapshot.val())
-    //     this.setState({ users })
-    //   })
   }
 
   componentDidUpdate(prevProps, PrevState) {

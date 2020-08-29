@@ -6,7 +6,7 @@ import {
   // takeLatest, 
   takeEvery
 } from 'redux-saga/effects'
-import { GET_USERS } from './actions'
+import { GET_USERS, GET_TODOS } from './actions'
 
 function* getUsers() {
   try {
@@ -32,4 +32,5 @@ function* getTodos() {
 
 export default function* rootSaga() {
   yield takeEvery(GET_USERS, getUsers)
+  yield takeEvery(GET_TODOS, getTodos)
 }

@@ -1,21 +1,19 @@
 import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import _ from 'lodash'
-import firebaseService from '../../services/firebase'
 import * as Actions from './actions'
 
 function Home(props) {
+  const { users } = props
   const [state, setState] = React.useState('chukwubunna')
 
   React.useEffect(() => {
-    props.getUsers()
     props.getFirebaseUsers()
   }, [])
 
-  // React.useEffect(() => {
-  //   getAsync().then(response => setState(response))
-  // }, [state])
+  React.useEffect(() => {
+    getAsync().then(response => setState(response))
+  }, [state])
 
   const getAsync = () => {
     const request = new Promise(function (resolve, reject) {
@@ -40,13 +38,12 @@ function Home(props) {
 function mapStateToProps({ homeReducer }) {
   console.log(homeReducer, "homeReducer")
   return {
-
+    users: homeReducer.users
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getUsers: Actions.getUsers,
     getFirebaseUsers: Actions.getFirebaseUsers,
   }, dispatch)
 }

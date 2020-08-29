@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash'
-import moment from 'moment'
 
 export default function Todos() {
   useEffect(() => {
