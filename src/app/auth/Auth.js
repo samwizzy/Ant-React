@@ -10,7 +10,7 @@ class Auth extends Component {
 
     firebaseAuth() {
         firebaseService.init()
-        firebaseService.signIn("samwize.inc@gmail.com", "samwize@123")
+        firebaseService.signIn("samwize.inc@gmail.com", "chukwubunna88")
     }
 
     render() {

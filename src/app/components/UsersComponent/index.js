@@ -27,7 +27,7 @@ function Users({ match, getUsers, checkUser }) {
 			<h1 className="title">Users</h1>
 			<h2 className="subtitle">
 				A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
-      </h2>
+			</h2>
 			<Button color="primary" onClick={getUsers}>Get User</Button>
 		</div>
 	)

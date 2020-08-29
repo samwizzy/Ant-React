@@ -2,6 +2,7 @@ import firebaseConfig from './firebaseConfig'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+import '@firebase/messaging'
 
 class firebaseService {
     init() {
@@ -11,6 +12,10 @@ class firebaseService {
         firebase.initializeApp(firebaseConfig)
         this.auth = firebase.auth();
         this.db = firebase.database();
+        this.messaging = firebase.messaging();
+        this.messaging.usePublicVapidKey(
+            "BMI3bjKzQpjd7hOxTOe7yS-8EDdUYsENHfOoiGkJnaMtnjupbztBfOMi25CkgIYw3fOMwnqlVbiFqqW3NGsYmXg"
+        );
     }
 
     currentUser = () => {
@@ -29,6 +34,28 @@ class firebaseService {
             })
         }
     };
+
+    pushNotification = () => {
+        if (!this.messaging) {
+            return;
+        }
+
+        this.messaging.requestPermission()
+            .then((permission) => {
+                console.log("Permission granted")
+                return this.messaging.getToken()
+            })
+            .then((token) => {
+                console.log("Firebase token: ", token)
+            })
+            .catch((error) => {
+                console.log("Firebase token error: ", error)
+            })
+
+        this.messaging.onMessage((payload) => {
+            console.log("onMessage: ", payload)
+        })
+    }
 
     pushUser() {
         const ref = this.db.ref().child('users')
@@ -101,7 +128,6 @@ class firebaseService {
         return new Promise((resolve, reject) => {
             this.db.ref().child('users')
                 .on('value', snapshot => {
-                    console.log(snapshot.val())
                     return resolve(snapshot.val())
                 })
         })

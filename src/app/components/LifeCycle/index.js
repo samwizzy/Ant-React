@@ -17,11 +17,11 @@ class LifeCycle extends React.Component {
     this.props.getCycles()
     this.props.getUsers()
 
-    firebase.database().ref().child('users')
-      .on('value', snapshot => {
-        const users = _.values(snapshot.val())
-        this.setState({ users })
-      })
+    // firebase.database().ref().child('users')
+    //   .on('value', snapshot => {
+    //     const users = _.values(snapshot.val())
+    //     this.setState({ users })
+    //   })
   }
 
   componentDidUpdate(prevProps, PrevState) {
