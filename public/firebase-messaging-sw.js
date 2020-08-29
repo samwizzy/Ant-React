@@ -21,11 +21,8 @@ messaging.setBackgroundMessageHandler(function (payload) {
     const notificationTitle = 'Background Message Title';
     const notificationOptions = {
         body: 'Background Message body.',
-        icon: '/firebase-logo.png'
+        icon: 'https://antreact.netlify.app/firebase-logo.png'
     };
-
-    return self.registration.showNotification(notificationTitle,
-        notificationOptions);
 
     const promiseChain = clients
         .matchAll({
@@ -39,12 +36,29 @@ messaging.setBackgroundMessageHandler(function (payload) {
             }
         })
         .then(() => {
-            return registration.showNotification("my notification title");
+            return self.registration.showNotification(notificationTitle,
+                notificationOptions);
         });
     return promiseChain;
 });
 
 self.addEventListener('notificationclick', function (event) {
-    // do what you want
-    // ...
+    let url = 'https://antreact.netlify.app/';
+    event.notification.close(); // Android needs explicit close.
+    event.waitUntil(
+        clients.matchAll({ type: 'window' }).then(windowClients => {
+            // Check if there is already a window/tab open with the target URL
+            for (var i = 0; i < windowClients.length; i++) {
+                var client = windowClients[i];
+                // If so, just focus it.
+                if (client.url === url && 'focus' in client) {
+                    return client.focus();
+                }
+            }
+            // If not, then open the target URL in a new window/tab.
+            if (clients.openWindow) {
+                return clients.openWindow(url);
+            }
+        })
+    );
 });
