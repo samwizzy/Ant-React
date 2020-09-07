@@ -2,12 +2,15 @@ import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from './actions'
+import moment from 'moment'
+import _ from 'lodash'
 
 function Home(props) {
   const { users } = props
   const [state, setState] = React.useState('chukwubunna')
 
   React.useEffect(() => {
+
     props.getFirebaseUsers()
   }, [])
 
