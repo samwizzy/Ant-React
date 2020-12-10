@@ -1,17 +1,20 @@
 # DEVELOPMENT ENVIRONMENT
+# base image
 FROM node:13.11.0-alpine as build
-WORKDIR /app
-COPY build ./
 
-# WORKDIR /app
-# COPY package.json ./
-# RUN yarn install
-# COPY . .
-# CMD [ "yarn", "run", "build" ]
+# set working directory
+WORKDIR /usr/src/app
 
-# PRODUCTION ENVIRONMENT
-FROM nginx:stable-alpine
-# COPY --from=build /app/build /usr/share/nginx/html
-COPY build /usr/share/nginx/html
-EXPOSE 80
-CMD [ "nginx", "-g", "daemon off;" ]
+# install and cache app dependencies
+COPY package*.json ./
+ADD package.json /usr/src/app/package.json
+RUN yarn install
+
+# bundle source
+COPY . .
+
+# Specify port
+EXPOSE 3000
+
+# start app
+CMD [ "yarn", "start" ]
