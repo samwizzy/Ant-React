@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import firebase from 'firebase/app'
 import firebaseService from '../../services/firebase'
 
 export const GET_CYCLE = 'CYCLE_COMPONENTS/GET CYCLE';
@@ -22,8 +23,10 @@ export function getCycles() {
 }
 
 export function getUsers() {
-
 	return (dispatch) => {
+		if (!firebase.apps.length) {
+			return;
+		}
 		firebaseService.getUsers()
 			.then((data) => {
 				console.log(data, "promise get users")

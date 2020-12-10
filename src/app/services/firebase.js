@@ -12,7 +12,7 @@ class firebaseService {
         firebase.initializeApp(firebaseConfig)
         this.auth = firebase.auth();
         this.db = firebase.database();
-        this.messaging = firebase.messaging();
+        this.messaging = firebase.messaging(); // Messaging: This browser doesn't support the API's required to use the firebase SDK. (messaging/unsupported-browser)
         this.messaging.usePublicVapidKey(
             "BMI3bjKzQpjd7hOxTOe7yS-8EDdUYsENHfOoiGkJnaMtnjupbztBfOMi25CkgIYw3fOMwnqlVbiFqqW3NGsYmXg"
         );
@@ -67,8 +67,6 @@ class firebaseService {
         }
 
         postsRef.push(data);
-        // const updateData = {}
-        //updateData[postKey] = {} // Just incase you want to update using the key
     }
 
     setUser() {

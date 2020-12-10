@@ -7,6 +7,9 @@ export const GET_FIREBASE_USERS = 'HOME_COMPONENTS/GET FIREBASE USERS';
 export function getFirebaseUsers() {
 
 	return (dispatch) => {
+		if (!firebase.apps.length) {
+			return;
+		}
 		firebase.database().ref().child('users')
 			.on('value', snapshot => {
 				const users = _.values(snapshot.val())

@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import Auth from './auth/Auth'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import store from './redux/store';
+import { Provider } from 'react-redux';
 import Layout from './@scaffold/layouts/Layout';
 import HomeComponent from './components/HomeComponent';
+import AboutComponent from './components/AboutComponent';
 import TodosComponent from './components/TodosComponent';
 import UsersComponent from './components/UsersComponent';
 import LifeCycleComponent from './components/LifeCycle';
@@ -13,11 +16,13 @@ import '@firebase/messaging'
 function App() {
 
   useEffect(() => {
-    const messaging = firebase.messaging()
+    if (!firebase.apps.length) {
+      return;
+    }
 
+    const messaging = firebase.messaging()
     messaging.requestPermission()
       .then(() => {
-        console.log("Permission granted")
         return messaging.getToken()
       })
       .then((token) => {
@@ -37,19 +42,24 @@ function App() {
 
   return (
     <div className="App">
-      <Auth>
-        <Layout>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={HomeComponent} />
-              <Route exact path="/todos" component={TodosComponent} />
-              <Route exact path="/users" component={UsersComponent} />
-              <Route exact path="/lifecycle" component={LifeCycleComponent} />
-              <Route exact path="/user/:id" component={UsersComponent} />
-            </Switch>
-          </Router>
-        </Layout>
-      </Auth>
+      <h2>Welcome to my App</h2>
+      <a href="">learn react</a>
+      <Provider store={store}>
+        <Auth>
+          <Layout>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={HomeComponent} />
+                <Route exact path="/about" component={AboutComponent} />
+                <Route exact path="/todos" component={TodosComponent} />
+                <Route exact path="/users" component={UsersComponent} />
+                <Route exact path="/lifecycle" component={LifeCycleComponent} />
+                <Route exact path="/user/:id" component={UsersComponent} />
+              </Switch>
+            </Router>
+          </Layout>
+        </Auth>
+      </Provider>
     </div>
   );
 }

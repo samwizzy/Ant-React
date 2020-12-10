@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import * as Actions from './actions'
 import moment from 'moment'
 import _ from 'lodash'
 
 function Home(props) {
+
+  const selectors = useSelector(state => state.homeReducer)
+
   const { users } = props
-  const [state, setState] = React.useState('chukwubunna')
+  const [state, setState] = useState('chukwubunna')
 
-  React.useEffect(() => {
-
+  useEffect(() => {
     props.getFirebaseUsers()
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     getAsync().then(response => setState(response))
   }, [state])
 
@@ -24,8 +26,6 @@ function Home(props) {
     });
     return request;
   }
-
-  console.log("I am a use effect", state)
 
   return (
     <div>
@@ -39,7 +39,6 @@ function Home(props) {
 }
 
 function mapStateToProps({ homeReducer }) {
-  console.log(homeReducer, "homeReducer")
   return {
     users: homeReducer.users
   }
